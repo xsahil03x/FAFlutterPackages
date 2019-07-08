@@ -9,16 +9,18 @@ class BarGraph extends StatefulWidget {
   final String title;
   final String totalDisplay;
   final bool disableColor;
+  final int expansionThreshold;
 
-  const BarGraph({
-    Key key,
-    @required this.list,
-    @required this.total,
-    @required this.title,
-    @required this.totalDisplay,
-    this.shimmer = false,
-    this.disableColor = false,
-  })  : assert(list != null),
+  const BarGraph(
+      {Key key,
+      @required this.list,
+      @required this.total,
+      @required this.title,
+      @required this.totalDisplay,
+      this.expansionThreshold = 4,
+      this.shimmer = false,
+      this.disableColor = false})
+      : assert(list != null),
         assert(total != null),
         assert(title != null),
         assert(totalDisplay != null),
@@ -34,9 +36,9 @@ class _WidgetState extends State<BarGraph> {
   @override
   void initState() {
     super.initState();
-    _length = widget.list.length < expansion_threshold
+    _length = widget.list.length < widget.expansionThreshold
         ? widget.list.length
-        : expansion_threshold;
+        : widget.expansionThreshold;
   }
 
   @override

@@ -6,5 +6,3 @@ export 'package:fa_flutter_packages/common/dimensions.dart';
 export 'package:fa_flutter_packages/common/widgets.dart';
 export 'package:fa_flutter_packages/common/page_routes.dart';
 export 'package:flutter/material.dart';
-
-const expansion_threshold = 4;
