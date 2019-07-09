@@ -11,8 +11,8 @@ class GaugeSegment {
 
   factory GaugeSegment.sample() {
     return GaugeSegment(
-        value: createRandomString(8),
-        segment: createRandomString(4),
+        value: rng.nextInt(255).toString(),
+        segment: createRandomString(8),
         size: 8,
         color: charts.Color(
             r: rng.nextInt(255), g: rng.nextInt(255), b: rng.nextInt(255)));
