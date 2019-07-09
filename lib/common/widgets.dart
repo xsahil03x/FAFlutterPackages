@@ -1,7 +1,9 @@
 import 'package:fa_flutter_packages/common/colors.dart';
 import 'package:fa_flutter_packages/common/dimensions.dart';
 import 'package:fa_flutter_packages/common/icons.dart';
+import 'package:fa_flutter_packages/common/text.dart';
 import 'package:fa_flutter_packages/common/textStyles.dart';
+import 'package:fa_flutter_packages/common/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -121,6 +123,154 @@ class AppShimmer extends StatelessWidget {
   }
 }
 
+class CardTitle extends StatelessWidget {
+  final String title;
+  final bool mtd;
+  final String unit;
+
+  const CardTitle({Key key, @required this.title, this.mtd = false, this.unit})
+      : assert(title != null),
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: textStyle_titleLight,
+            ),
+            Opacity(
+              opacity: mtd ? 1 : 0,
+              child: Container(
+                padding: const EdgeInsets.all(2),
+                decoration: new BoxDecoration(
+                  border: Border.all(color: color_grey_extra),
+                ),
+                child: Text(
+                  unit.length > 0 ? unit : text_mtd.toUpperCase(),
+                  style: textStyle_subOverlineRegular.copyWith(
+                      color: color_secondary),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AppCard extends StatelessWidget {
+  final double height;
+  final Widget child;
+  final bool shimmer;
+  final EdgeInsets contentPadding;
+
+  const AppCard(
+      {Key key,
+      this.child = const Placeholder(),
+      this.height,
+      this.contentPadding = const EdgeInsets.fromLTRB(2, 0, 2, 0),
+      this.shimmer = false})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    //var network = Provider.of<ConnectivityResult>(context);
+    return Padding(
+      padding: EdgeInsets.fromLTRB(2, 0, 2, 0),
+      child: Container(
+        height: height,
+        child: Card(
+          shape: cardShape,
+          elevation: cardElevation,
+          color: color_white,
+          child: shimmer
+              ? AppShimmer(child: child)
+              : Padding(
+                  padding: contentPadding,
+                  child: child,
+                ),
+        ),
+      ),
+    );
+  }
+}
+
+class CardExpandIcon extends StatelessWidget {
+  final bool opacity;
+  final double height;
+
+  const CardExpandIcon({Key key, this.opacity = true, this.height = 3})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Opacity(
+      opacity: opacity ? 1 : 0,
+      child: Container(
+        height: height,
+        child: Center(
+            child: Icon(
+          icExpandable,
+          color: color_grey,
+        )),
+      ),
+    );
+  }
+}
+
+class HomePageCard extends StatelessWidget {
+  final Widget child;
+  final String title;
+  final double height;
+  final String tag;
+  final bool expandable;
+  final bool mtd;
+  final String unit;
+
+  const HomePageCard({
+    Key key,
+    this.title = '',
+    this.child = const Placeholder(),
+    this.tag = "tag",
+    this.height = homeCardHeight,
+    this.expandable = false,
+    this.mtd = false,
+    this.unit = '',
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppCard(
+      height: height,
+      child: Column(
+        children: [
+          CardTitle(
+            title: title,
+            mtd: mtd,
+            unit: unit,
+          ),
+          Expanded(child: child),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: CardExpandIcon(
+              height: 8,
+              opacity: expandable,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class LinePercentage extends StatelessWidget {
   final int score;
   final int total;
@@ -183,5 +333,3 @@ class AlignExpanded extends StatelessWidget {
     );
   }
 }
-
-

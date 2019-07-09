@@ -1,5 +1,17 @@
+import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
+
+import 'package:fa_flutter_packages/common/dimensions.dart';
+import 'package:flutter/material.dart';
+
+get cardShape => Platform.isAndroid
+    ? RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(radius),
+        ),
+      )
+    : RoundedRectangleBorder();
 
 var rng = new Random();
 var letters = [
