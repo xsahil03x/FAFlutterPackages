@@ -43,7 +43,6 @@ class ScaffoldWithBack extends StatelessWidget {
               ),
             ),
           ],
-          backgroundColor: color_primary,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
