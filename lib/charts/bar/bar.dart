@@ -10,6 +10,7 @@ class BarGraph extends StatefulWidget {
   final String totalDisplay;
   final bool disableColor;
   final int expansionThreshold;
+  final String action;
 
   const BarGraph(
       {Key key,
@@ -19,7 +20,8 @@ class BarGraph extends StatefulWidget {
       @required this.totalDisplay,
       this.expansionThreshold = 4,
       this.shimmer = false,
-      this.disableColor = false})
+      this.disableColor = false,
+      this.action})
       : assert(list != null),
         assert(total != null),
         assert(title != null),
@@ -75,6 +77,7 @@ class _WidgetState extends State<BarGraph> {
               title: widget.title,
               totalDisplay: widget.totalDisplay,
               disableColor: widget.disableColor,
+              action: widget.action,
             ),
       ),
     );
@@ -132,6 +135,7 @@ class BarExpanded extends StatelessWidget {
   final String title;
   final bool disableColor;
   final String totalDisplay;
+  final String action;
 
   const BarExpanded(
       {Key key,
@@ -139,13 +143,15 @@ class BarExpanded extends StatelessWidget {
       this.list,
       this.title,
       this.disableColor,
-      this.totalDisplay})
+      this.totalDisplay,
+      this.action})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ScaffoldWithBack(
       title: title,
+      action: action,
       child: Column(children: [
         Container(
           height: 16,
