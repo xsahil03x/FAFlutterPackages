@@ -12,10 +12,11 @@ class BarData {
   String toString() => 'title: $title, score: $score';
 
   factory BarData.sample() {
+    final score = rng.nextInt(2000).toDouble();
     return BarData(
         title: createRandomString(8),
-        score: 2000,
+        score: score,
         color: rngColor,
-        scoreDisplay: '2000');
+        scoreDisplay: score.toString());
   }
 }

@@ -11,6 +11,7 @@ class BarGraph extends StatefulWidget {
   final bool disableColor;
   final int expansionThreshold;
   final String action;
+  final bool animate;
 
   const BarGraph(
       {Key key,
@@ -21,7 +22,8 @@ class BarGraph extends StatefulWidget {
       this.expansionThreshold = 4,
       this.shimmer = false,
       this.disableColor = false,
-      this.action})
+      this.action,
+      this.animate = false})
       : assert(list != null),
         assert(total != null),
         assert(title != null),
@@ -61,6 +63,7 @@ class _WidgetState extends State<BarGraph> {
             disableColor: widget.disableColor,
             physics: NeverScrollableScrollPhysics(),
             length: _length,
+            animate: widget.animate,
           ),
         ),
       ]),
@@ -78,6 +81,7 @@ class _WidgetState extends State<BarGraph> {
               totalDisplay: widget.totalDisplay,
               disableColor: widget.disableColor,
               action: widget.action,
+              animate: widget.animate,
             ),
       ),
     );
@@ -92,6 +96,7 @@ class Bars extends StatelessWidget {
   final double baseline;
   final bool shimmer;
   final bool disableColor;
+  final bool animate;
 
   const Bars({
     Key key,
@@ -102,6 +107,7 @@ class Bars extends StatelessWidget {
     this.baseline = 64,
     this.disableColor = false,
     this.physics,
+    this.animate,
   }) : super(key: key);
 
   @override
@@ -112,17 +118,15 @@ class Bars extends StatelessWidget {
       shrinkWrap: true,
       itemCount: length,
       itemBuilder: (context, index) {
-        return ShimmerWrapper(
-          shimmer: shimmer,
-          child: LabelLinePercentage(
-            baseLine: 16,
-            color: list[index].color,
-            label: list[index].title,
-            disableColor: disableColor,
-            score: list[index].score.toInt(),
-            scoreDisplay: list[index].scoreDisplay,
-            total: total != null ? total.toInt() : 0,
-          ),
+        return LabelLinePercentage(
+          baseLine: 16,
+          color: list[index].color,
+          label: list[index].title,
+          disableColor: disableColor,
+          score: list[index].score.toInt(),
+          scoreDisplay: list[index].scoreDisplay,
+          total: total != null ? total.toInt() : 0,
+          animateDuration: animate ? (500 + (index * 50)) : 0,
         );
       },
     );
@@ -136,6 +140,7 @@ class BarExpanded extends StatelessWidget {
   final bool disableColor;
   final String totalDisplay;
   final String action;
+  final bool animate;
 
   const BarExpanded(
       {Key key,
@@ -144,7 +149,8 @@ class BarExpanded extends StatelessWidget {
       this.title,
       this.disableColor,
       this.totalDisplay,
-      this.action})
+      this.action,
+      this.animate})
       : super(key: key);
 
   @override
@@ -167,6 +173,7 @@ class BarExpanded extends StatelessWidget {
             length: list.length,
             physics: scrollPhysics,
             disableColor: disableColor,
+            animate: animate,
           ),
         ),
       ]),

@@ -54,7 +54,7 @@ List<String> createRandomList(int size, String postfix, int limit) {
   return list;
 }
 
-List<double> createRandomIntegerList(int size, int limit) {
+List<double> createRandomDoubleList(int size, int limit) {
   List<double> list = new List();
   for (var i = 0; i < size; i++) {
     list.add(rng.nextInt(limit).toDouble());

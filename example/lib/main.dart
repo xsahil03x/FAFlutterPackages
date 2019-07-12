@@ -25,16 +25,24 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final list = getDummyBarData();
+    var total = 0.0;
+    list.sort((a, b) => b.score.compareTo(a.score));
+    list.forEach((a) {
+      total = total + a.score;
+    });
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       body: ListView(children: [
         Container(
           height: 200,
           child: BarGraph(
-            list: getDummyBarData(),
-            total: 3000.0,
+            list: list,
+            total: total,
             title: 'Test Bar Graph',
-            totalDisplay: '3000.0',
+            totalDisplay: total.toString(),
+            disableColor: true,
+            animate: true,
           ),
         ),
         SizedBox(height: 16),

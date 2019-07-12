@@ -8,6 +8,7 @@ class LabelLinePercentage extends StatelessWidget {
   final Color color;
   final double baseLine;
   final bool disableColor;
+  final int animateDuration;
 
   const LabelLinePercentage({
     Key key,
@@ -18,6 +19,7 @@ class LabelLinePercentage extends StatelessWidget {
     @required this.scoreDisplay,
     this.baseLine = 64,
     this.disableColor = false,
+    this.animateDuration,
   })  : assert(label != null),
         assert(score != null),
         assert(total != null),
@@ -52,6 +54,7 @@ class LabelLinePercentage extends StatelessWidget {
             total: total,
             color: color,
             disableColor: disableColor,
+            animateDuration: animateDuration,
           ),
         ),
       ],

@@ -271,6 +271,7 @@ class HomePageCard extends StatelessWidget {
   }
 }
 
+/*
 class LinePercentage extends StatelessWidget {
   final int score;
   final int total;
@@ -310,6 +311,98 @@ class LinePercentage extends StatelessWidget {
             height: linePercentageHeight,
             decoration: BoxDecoration(
                 color: disableColor
+                    ? linePercentageDisableColor
+                    : color_transparent),
+          ),
+        )
+      ],
+    );
+  }
+}
+*/
+
+class LinePercentage extends StatefulWidget {
+  final int score;
+  final int total;
+  final Color color;
+  final bool disableColor;
+  final double barHeight;
+  final int animateDuration;
+
+  const LinePercentage({
+    Key key,
+    @required this.score,
+    @required this.total,
+    @required this.color,
+    this.disableColor = false,
+    this.barHeight = 2.0,
+    this.animateDuration,
+  })  : assert(score != null),
+        assert(total != null),
+        assert(color != null),
+        super(key: key);
+
+  @override
+  _LinePercentageState createState() => _LinePercentageState();
+}
+
+class _LinePercentageState extends State<LinePercentage>
+    with SingleTickerProviderStateMixin {
+  AnimationController _animationController;
+  Animation _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.animateDuration != 0) {
+      _animationController = AnimationController(
+          duration: Duration(milliseconds: 500), vsync: this);
+      _animation =
+          IntTween(begin: 0, end: widget.score).animate(_animationController);
+      _animation.addListener(() {
+        setState(() {});
+      });
+      _animateScore();
+    }
+  }
+
+  void _animateScore() async {
+    await Future.delayed(Duration(milliseconds: widget.animateDuration));
+    _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final score = widget.animateDuration != 0 ? _animation.value : widget.score;
+    return Row(
+      children: <Widget>[
+        Expanded(
+          flex: score,
+          child: Container(
+            height: widget.barHeight,
+            decoration: BoxDecoration(
+              color: widget.color,
+              borderRadius: BorderRadius.all(
+                Radius.circular(2),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: widget.total - score,
+          child: Container(
+            height: linePercentageHeight,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(2),
+                ),
+                color: widget.disableColor
                     ? linePercentageDisableColor
                     : color_transparent),
           ),
