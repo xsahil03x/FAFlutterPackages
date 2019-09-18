@@ -11,8 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  shimmer: ^1.0.0
-  charts_flutter: ^0.6.0
+  shimmer: ^1.0.1
+  charts_flutter: ^0.8.0
 
 
 dev_dependencies:
