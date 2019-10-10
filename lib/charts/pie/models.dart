@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'configs.dart';
 
@@ -16,5 +18,19 @@ class GaugeSegment {
         size: 8,
         color: charts.Color(
             r: rng.nextInt(255), g: rng.nextInt(255), b: rng.nextInt(255)));
+  }
+
+  GaugeSegment copyWith({
+    String segment,
+    int size,
+    String value,
+    charts.Color color,
+  }) {
+    return GaugeSegment(
+      segment: segment ?? this.segment,
+      size: size ?? this.size,
+      value: value ?? this.value,
+      color: color ?? this.color,
+    );
   }
 }
