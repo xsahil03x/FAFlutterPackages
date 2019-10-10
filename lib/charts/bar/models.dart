@@ -19,4 +19,18 @@ class BarData {
         color: rngColor,
         scoreDisplay: score.toString());
   }
+
+  BarData copyWith({
+    String title,
+    double score,
+    String scoreDisplay,
+    Color color,
+  }) {
+    return BarData(
+      title: title ?? this.title,
+      score: score ?? this.score,
+      scoreDisplay: scoreDisplay ?? this.scoreDisplay,
+      color: color ?? this.color,
+    );
+  }
 }
