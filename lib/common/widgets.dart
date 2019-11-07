@@ -368,7 +368,7 @@ class _LinePercentageState extends State<LinePercentage>
 
   void _animateScore() async {
     await Future.delayed(Duration(milliseconds: widget.animateDuration));
-    _animationController.forward();
+    if (mounted) _animationController.forward();
   }
 
   @override

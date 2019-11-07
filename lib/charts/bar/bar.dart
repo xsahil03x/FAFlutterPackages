@@ -49,7 +49,7 @@ class _WidgetState extends State<BarGraph> {
   Widget build(BuildContext context) {
     return InkWell(
       splashColor: color_transparent,
-      onTap: () => expand(),
+      onTap: widget.shimmer ? null : () => expand(),
       child: Column(children: [
         TotalRow(
           total: widget.total,
@@ -76,14 +76,14 @@ class _WidgetState extends State<BarGraph> {
       context,
       dialogPageRoute(
         builder: (_) => BarExpanded(
-              list: widget.list,
-              total: widget.total,
-              title: widget.title,
-              totalDisplay: widget.totalDisplay,
-              disableColor: widget.disableColor,
-              action: widget.action,
-              animate: widget.animate,
-            ),
+          list: widget.list,
+          total: widget.total,
+          title: widget.title,
+          totalDisplay: widget.totalDisplay,
+          disableColor: widget.disableColor,
+          action: widget.action,
+          animate: widget.animate,
+        ),
       ),
     );
   }

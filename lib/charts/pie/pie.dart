@@ -56,11 +56,11 @@ class _WidgetState extends State<PieChart> {
       context,
       dialogPageRoute(
         builder: (_) => new PieChartExpanded(
-              list: widget.list,
-              title: widget.title,
-              total: widget.total,
-              action: widget.action,
-            ),
+          list: widget.list,
+          title: widget.title,
+          total: widget.total,
+          action: widget.action,
+        ),
       ),
     );
   }
@@ -68,9 +68,7 @@ class _WidgetState extends State<PieChart> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        expand();
-      },
+      onTap: widget.shimmer ? null : () => expand(),
       child: Row(
         children: [
           Expanded(
