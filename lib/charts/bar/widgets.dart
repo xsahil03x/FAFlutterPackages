@@ -6,6 +6,7 @@ class LabelLinePercentage extends StatelessWidget {
   final String scoreDisplay;
   final int total;
   final Color color;
+  final bool shimmer;
   final double baseLine;
   final bool disableColor;
   final int animateDuration;
@@ -17,6 +18,7 @@ class LabelLinePercentage extends StatelessWidget {
     @required this.total,
     @required this.color,
     @required this.scoreDisplay,
+    this.shimmer = false,
     this.baseLine = 64,
     this.disableColor = false,
     this.animateDuration,
@@ -36,25 +38,34 @@ class LabelLinePercentage extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                label,
-                style: textStyle_bodyLight,
+              ShimmerWrapper(
+                shimmer: shimmer,
+                child: Text(
+                  label,
+                  style: textStyle_bodyLight,
+                ),
               ),
-              Text(
-                scoreDisplay,
-                style: textStyle_bodyRegular,
+              ShimmerWrapper(
+                shimmer: shimmer,
+                child: Text(
+                  scoreDisplay,
+                  style: textStyle_bodyRegular,
+                ),
               ),
             ],
           ),
         ),
-        Padding(
-          padding: barPadding,
-          child: LinePercentage(
-            score: score,
-            total: total,
-            color: color,
-            disableColor: disableColor,
-            animateDuration: animateDuration,
+        ShimmerWrapper(
+          shimmer: shimmer,
+          child: Padding(
+            padding: barPadding,
+            child: LinePercentage(
+              score: score,
+              total: total,
+              color: color,
+              disableColor: disableColor,
+              animateDuration: animateDuration,
+            ),
           ),
         ),
       ],
@@ -65,9 +76,14 @@ class LabelLinePercentage extends StatelessWidget {
 class TotalRow extends StatelessWidget {
   final double total;
   final String totalDisplay;
+  final bool shimmer;
 
-  const TotalRow({Key key, @required this.total, this.totalDisplay})
-      : assert(total != null),
+  const TotalRow({
+    Key key,
+    @required this.total,
+    this.totalDisplay,
+    this.shimmer = false,
+  })  : assert(total != null),
         assert(total != null),
         super(key: key);
 
@@ -79,14 +95,21 @@ class TotalRow extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            text_total,
-            style:
-                textStyle_titleRegular.copyWith(color: color_textBlackMedium),
+          ShimmerWrapper(
+            shimmer: shimmer,
+            child: Text(
+              text_total,
+              style:
+                  textStyle_titleRegular.copyWith(color: color_textBlackMedium),
+            ),
           ),
-          Text(
-            totalDisplay,
-            style: textStyle_titleRegular.copyWith(color: color_textBlackHigh),
+          ShimmerWrapper(
+            shimmer: shimmer,
+            child: Text(
+              totalDisplay,
+              style:
+                  textStyle_titleRegular.copyWith(color: color_textBlackHigh),
+            ),
           ),
         ],
       ),

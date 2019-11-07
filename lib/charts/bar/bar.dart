@@ -54,6 +54,7 @@ class _WidgetState extends State<BarGraph> {
         TotalRow(
           total: widget.total,
           totalDisplay: widget.totalDisplay,
+          shimmer: widget.shimmer,
         ),
         Expanded(
           child: Bars(
@@ -123,6 +124,7 @@ class Bars extends StatelessWidget {
           color: list[index].color,
           label: list[index].title,
           disableColor: disableColor,
+          shimmer: shimmer,
           score: list[index].score.toInt(),
           scoreDisplay: list[index].scoreDisplay,
           total: total != null ? total.toInt() : 0,
